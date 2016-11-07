@@ -189,6 +189,8 @@ public final class CalculatorActivity extends Activity {
         secondResult = 0;
         isPoint = false;
         oldOperation = "+";
+        lastNumber = "0";
+        lastButton = "c";
         resultOperation = "";
         resultView.setText("");
         result = "";
