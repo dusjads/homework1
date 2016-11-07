@@ -10,7 +10,21 @@ public final class CalculatorActivity extends Activity {
     double firstResult = 0, secondResult = 0;
     TextView resultView, expressionView;
     boolean isPoint = false;
-    String expression = "", lastNumber = "0", oldOperation = "+", resultOperation, lastButton = "";
+    String expression = "", lastNumber = "0", oldOperation = "+", resultOperation, lastButton = "", result = "";
+
+    static final String FIRSTPESULT = "firstResult";
+    static final String SECONDRESULT = "secondResult";
+    static final String LASTBUTTON = "lastButton";
+    static final String EXPRESSION = "expression";
+    static final String ISPOINT = "isPoint";
+    static final String LASTNUMBER = "lastNumber";
+    static final String OLDOPERATION = "oldOperation";
+    static final String RESULOPERATION = "resultOperation";
+    static final String RESULT = "result";
+
+
+
+
 
 
     @Override
@@ -21,12 +35,25 @@ public final class CalculatorActivity extends Activity {
 
         resultView = (TextView) findViewById(R.id.result);
         expressionView = (TextView) findViewById(R.id.expr);
+        if (savedInstanceState != null) {
+            firstResult = savedInstanceState.getDouble(FIRSTPESULT);
+            secondResult = savedInstanceState.getDouble(SECONDRESULT);
+            lastButton = savedInstanceState.getString(LASTBUTTON);
+            expression = savedInstanceState.getString(EXPRESSION);
+            oldOperation = savedInstanceState.getString(OLDOPERATION);
+            resultOperation = savedInstanceState.getString(RESULOPERATION);
+            isPoint = savedInstanceState.getBoolean(ISPOINT);
+            lastNumber = savedInstanceState.getString(LASTNUMBER);
+            result = savedInstanceState.getString(RESULT);
+
+        }
+        resultView.setText(result);
         expressionView.setText(expression);
-        resultView.setText("");
+
+
     }
 
     public void updateView() {
-        //resultView.setText(String.format("%6d", result));
         expressionView.setText(expression);
     }
 
@@ -150,6 +177,7 @@ public final class CalculatorActivity extends Activity {
         lastNumber = "0";
         oldOperation = "+";
         resultView.setText(expression);
+        result = expression;
         updateView();
         lastButton = "=";
 
@@ -163,6 +191,7 @@ public final class CalculatorActivity extends Activity {
         oldOperation = "+";
         resultOperation = "";
         resultView.setText("");
+        result = "";
         expressionView.setText(expression);
     }
 
@@ -184,5 +213,19 @@ public final class CalculatorActivity extends Activity {
         updateView();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle saveInstanceState) {
+        super.onSaveInstanceState(saveInstanceState);
+        saveInstanceState.putString(LASTNUMBER, lastNumber);
+        saveInstanceState.putDouble(SECONDRESULT, secondResult);
+        saveInstanceState.putBoolean(ISPOINT, isPoint);
+        saveInstanceState.putDouble(FIRSTPESULT, firstResult);
+        saveInstanceState.putString(LASTBUTTON, lastButton);
+        saveInstanceState.putString(OLDOPERATION, oldOperation);
+        saveInstanceState.putString(RESULOPERATION, resultOperation);
+        saveInstanceState.putString(EXPRESSION, expression);
+        saveInstanceState.putString(RESULT, result);
+
+    }
 
 }
